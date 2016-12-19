@@ -13,4 +13,15 @@
  */
 
  @import "bootstrap-sprockets";
+ @import "bootswatch/cyborg/variables";
  @import "bootstrap";
+
+ @import "bootswatch/cyborg/bootswatch";
+
+.nav.navbar-default {
+  background-color: #454545;
+}
+
+#login {
+  text-align: center;
+}
