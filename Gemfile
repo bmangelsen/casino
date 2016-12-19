@@ -34,6 +34,7 @@ gem 'simplecov'
 gem 'cancancan'
 gem 'mail'
 gem 'httparty'
+gem 'devise'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
