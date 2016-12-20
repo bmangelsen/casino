@@ -5,11 +5,12 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
-      ActionCable.server.broadcast 'game',
-        message: @game.message,
-        host: current_user
-      head :ok
+      redirect_to game_path(@game.id)
     end
+  end
+
+  def show
+    @game = Game.find(params[:id])
   end
 
   private

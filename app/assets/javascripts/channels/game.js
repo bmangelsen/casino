@@ -8,6 +8,11 @@ App.game = App.cable.subscriptions.create("GameChannel", {
   },
 
   received: function(data) {
+    console.log("Game Started", data);
     // Called when there's incoming data on the websocket for this channel
+  },
+
+  start: function() {
+    return this.perform('start');
   }
 });
