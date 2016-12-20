@@ -1,4 +1,8 @@
-example_id                                           | status | run_time        |
----------------------------------------------------- | ------ | --------------- |
-./spec/controllers/welcome_controller_spec.rb[1:1:1] | passed | 0.04397 seconds |
-./spec/models/user_spec.rb[1:1]                      | passed | 0.02197 seconds |
+example_id                                         | status | run_time        |
+-------------------------------------------------- | ------ | --------------- |
+./spec/controllers/games_controller_spec.rb[1:1]   | passed | 0.08832 seconds |
+./spec/controllers/players_controller_spec.rb[1:1] | passed | 0.15438 seconds |
+./spec/controllers/players_controller_spec.rb[1:2] | passed | 0.05095 seconds |
+./spec/models/game_spec.rb[1:1]                    | passed | 0.06799 seconds |
+./spec/models/player_spec.rb[1:1]                  | passed | 0.09509 seconds |
+./spec/models/user_spec.rb[1:1]                    | passed | 0.00187 seconds |

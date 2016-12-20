@@ -9,5 +9,8 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
       }
 
-  root "welcome#index"
+  resources :players, only: [:new, :create]
+  resources :games, only: [:new, :create, :index]
+
+  root "games#index"
 end

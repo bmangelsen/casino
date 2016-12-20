@@ -1,10 +1,13 @@
 class GamesController < ApplicationController
+  def index
+  end
+
   def create
     @game = Game.new(game_params)
-    @game.players << current_user
+
     if @game.save
       ActionCable.server.broadcast 'game',
-        message: @game.message
+        message: @game.message,
         host: current_user
       head :ok
     end

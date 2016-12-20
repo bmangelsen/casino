@@ -6,10 +6,8 @@
 #
 ben:
   email: ben@gmail.com
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
 # column: value
 #
 tom:
   email: tom@gmail.com
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
 # column: value
