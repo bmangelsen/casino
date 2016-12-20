@@ -57,6 +57,8 @@ Rails.application.configure do
   authentication:       'plain',
   enable_starttls_auto: true  }
 
+  config.action_cable.url = "ws://localhost:3000/cable"
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
