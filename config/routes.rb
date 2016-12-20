@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       }
 
   resources :players, only: [:new, :create]
-  resources :games, only: [:new, :create, :index]
+  resources :games, only: [:new, :create, :index, :show]
 
   root "games#index"
 end

@@ -1,3 +1,23 @@
-<p>
-  Welcome to the casino! Check out our available games below.
-</p>
+<% if current_user %>
+  <p id="welcome">
+    Hop into one of our games below!
+  </p>
+<% else %>
+  <p id="welcome">
+    Go ahead and log in so you can start playing one of these fabulous games.
+  </p>
+<% end %>
+
+<div class="container">
+  <div class="row">
+    <div id="game">
+      <p>
+        Blackjack!
+      </p>
+      <% if current_user %>
+        <%= link_to "Start Game", games_path(game: {message: "The game has begun!", host: current_user}), method: :post, class: "btn btn-danger btn-xs" %>
+        <%= link_to "Join Game", games_path, class: "btn btn-info btn-xs" %>
+      <% end %>
+    </div>
+  </div>
+</div>
