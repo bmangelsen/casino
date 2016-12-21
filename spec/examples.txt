@@ -1,8 +1,11 @@
 example_id                                         | status | run_time        |
 -------------------------------------------------- | ------ | --------------- |
-./spec/controllers/games_controller_spec.rb[1:1]   | passed | 0.08832 seconds |
-./spec/controllers/players_controller_spec.rb[1:1] | passed | 0.15438 seconds |
-./spec/controllers/players_controller_spec.rb[1:2] | passed | 0.05095 seconds |
-./spec/models/game_spec.rb[1:1]                    | passed | 0.06799 seconds |
-./spec/models/player_spec.rb[1:1]                  | passed | 0.09509 seconds |
-./spec/models/user_spec.rb[1:1]                    | passed | 0.00187 seconds |
+./spec/controllers/games_controller_spec.rb[1:1]   | passed | 0.03052 seconds |
+./spec/controllers/games_controller_spec.rb[1:2]   | passed | 0.02866 seconds |
+./spec/controllers/players_controller_spec.rb[1:1] | passed | 0.14634 seconds |
+./spec/controllers/players_controller_spec.rb[1:2] | passed | 0.01556 seconds |
+./spec/models/deck_spec.rb[1:1]                    | passed | 0.01325 seconds |
+./spec/models/deck_spec.rb[1:2]                    | passed | 0.02206 seconds |
+./spec/models/game_spec.rb[1:1]                    | passed | 0.02893 seconds |
+./spec/models/player_spec.rb[1:1]                  | passed | 0.04321 seconds |
+./spec/models/user_spec.rb[1:1]                    | passed | 0.02388 seconds |
