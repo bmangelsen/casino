@@ -13,15 +13,12 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-      if @game.deck
-        @game.message = ""
-      end
     @player = Player.find_by(user_id: current_user.id, game_id: @game.id)
     @dealer = Player.find_by(user_id: nil, game_id: @game.id)
   end
 
   private
   def game_params
-    params.require(:game).permit(:host, :message)
+    params.require(:game).permit(:host)
   end
 end

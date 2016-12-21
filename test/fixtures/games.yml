@@ -5,8 +5,8 @@
 # below each fixture, per the syntax in the comments below
 #
 first:
-  message: "The game has begun!"
-
+  host: ben
 second:
-  message: "The game has ended!"
+  host: tom
+
 # column: value

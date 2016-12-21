@@ -10,9 +10,9 @@ class GameChannel < ApplicationCable::Channel
   end
 
   def start
-    game = Game.find(params[:id])
+    Game.find(params[:id])
     ActionCable.server.broadcast 'game',
-      message: game.message,
+      message: "New game!",
       host: current_user
     render_new_game
   end

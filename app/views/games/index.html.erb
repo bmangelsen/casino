@@ -15,7 +15,7 @@
         Blackjack!
       </p>
       <% if current_user %>
-        <%= link_to "Start Game", games_path(game: {message: "The game has begun!", host: current_user}), method: :post, class: "btn btn-danger btn-xs" %>
+        <%= link_to "Start Game", games_path(game: {host: current_user}), method: :post, class: "btn btn-danger btn-xs" %>
         <%= link_to "Join Game", games_path, class: "btn btn-info btn-xs" %>
       <% end %>
     </div>
