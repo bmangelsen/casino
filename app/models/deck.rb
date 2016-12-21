@@ -19,5 +19,7 @@ class Deck < ApplicationRecord
 
   def play_card
     @card = cards.shift
+    self.save
+    @card
   end
 end

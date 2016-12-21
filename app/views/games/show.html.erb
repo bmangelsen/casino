@@ -2,12 +2,27 @@
   <%= @game.message %>
 </p>
 
+<% if @player.hand %>
+  <%= link_to "Hit", hand_path(@player.hand.id), method: :patch %>
+  <%= link_to "Stand" %>
+<% end %>
+
 <% if !@game.deck %>
   <%= link_to "Deal", decks_path(deck: {game_id: @game.id}), method: :post, class: "btn btn-danger btn-xs" %>
 <% end %>
 
 <% if @game.deck %>
-<pre>
-  <code><%= @game.deck.cards.to_s %></code>
-</pre>
+<p>
+  Your cards are: <%= @player.hand.cards %>
+</p>
+<p>
+  Your total: <%= @player.hand.value %>
+</p>
+<br>
+<p>
+  Dealer's cards are: <%= @dealer.hand.cards %>
+</p>
+<p>
+  Dealer's total <%= @dealer.hand.value %>
+</p>
 <% end %>
