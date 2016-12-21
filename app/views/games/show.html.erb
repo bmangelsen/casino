@@ -1,3 +1,13 @@
 <p id="head">
   <%= @game.message %>
 </p>
+
+<% if !@game.deck %>
+  <%= link_to "Deal", decks_path(deck: {game_id: @game.id}), method: :post, class: "btn btn-danger btn-xs" %>
+<% end %>
+
+<% if @game.deck %>
+<pre>
+  <code><%= @game.deck.cards.to_s %></code>
+</pre>
+<% end %>

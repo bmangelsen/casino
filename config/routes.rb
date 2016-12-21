@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       }
 
   resources :players, only: [:new, :create]
-  resources :games, only: [:new, :create, :index, :show]
+  resources :games, only: [:create, :index, :show]
+  resources :decks, only: [:create, :update]
 
   root "games#index"
 end

@@ -5,6 +5,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
+      @game.players << Player.create(user_id: current_user.id, game_id: @game.id)
       redirect_to game_path(@game.id)
     end
   end
