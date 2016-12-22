@@ -3,8 +3,8 @@ class Deck < ApplicationRecord
 
   serialize :cards
 
-  VALUE = (2..10).to_a + ["Jack", "Queen", "King", "Ace"]
-  SUIT = ["Hearts", "Spades", "Clubs", "Diamonds"]
+  VALUE = (2..10).to_a + ["jack", "queen", "king", "ace"]
+  SUIT = ["hearts", "spades", "clubs", "diamonds"]
 
   def build_deck
     @deck = []

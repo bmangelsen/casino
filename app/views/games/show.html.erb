@@ -16,21 +16,22 @@
   <% end %>
 
   <% if @game.deck %>
-  <p>
-    Your cards are: <%= @player.hand.cards %>
-  </p>
-  <p>
-    Your total: <%= @player.hand.value %>
-  </p>
-  <br>
+    <p>
+      Your cards are : <%= display_cards_for @player %>
+
+    </p>
+    <p>
+      Your total: <%= @player.hand.value %>
+    </p>
+    <br>
 
     <% if @game.over %>
       <p>
-        Dealer's cards are: <%= @dealer.hand.cards %>
+        Dealer's cards are: <%= display_cards_for @dealer %>
       </p>
     <% else %>
       <p>
-        Dealer's visible card is: <%= @dealer.hand.cards.first %>
+        Dealer's visible card is: <%= display_card @dealer.cards.first %>
       </p>
     <% end %>
 

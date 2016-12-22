@@ -11,13 +11,13 @@ class Hand < ApplicationRecord
 
   def add_card_value(card)
     case card[0]
-      when "Jack"
+    when "jack"
         self.value += 10
-      when "Queen"
+      when "queen"
         self.value += 10
-      when "King"
+      when "king"
         self.value += 10
-      when "Ace"
+      when "ace"
         if self.value + 11 <= 21
           self.value += 11
         else

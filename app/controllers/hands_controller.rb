@@ -28,7 +28,7 @@ class HandsController < ApplicationController
     @deck = Deck.find_by(game_id: Player.find(@dealer_hand.player_id).game_id)
     @game = Game.find(Player.find(@dealer_hand.player_id).game_id)
 
-    until @dealer_hand.value > 17
+    until @dealer_hand.value >= 17
       @dealer_hand.cards << @deck.play_card
       @dealer_hand.add_card_value(@dealer_hand.cards.last)
     end
@@ -55,7 +55,7 @@ class HandsController < ApplicationController
         @player.save
         @game.over = true
         @game.save
-        redirect_to game_path(@game.id), notice: "Dealer busted! You win!"
+        redirect_to game_path(@game.id), notice: "Dealer lost! You win!"
       else
         @game.over = true
         @game.save
