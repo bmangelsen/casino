@@ -1,25 +1,32 @@
 <br>
-<% if @player.hand %>
-  <%= link_to "Hit", hand_path(@player.hand.id), method: :patch, class: "btn btn-danger btn-xs" %>
-  <%= link_to "Stand", root_path, class: "btn btn-info btn-xs" %>
+
+<% if @game.over %>
+  <%= link_to "New Game!", games_path(game: {host: current_user}), method: :post, class: "btn btn-danger btn-xs" %>
 <% end %>
 
-<% if !@game.deck %>
-  <%= link_to "Deal", decks_path(deck: {game_id: @game.id}), method: :post, class: "btn btn-danger btn-xs" %>
+<% if !@game.over %>
+  <% if @player.hand %>
+    <%= link_to "Hit", hand_path(@player.hand.id), method: :patch, class: "btn btn-danger btn-xs" %>
+    <%= link_to "Stand", root_path, class: "btn btn-info btn-xs" %>
+  <% end %>
 <% end %>
 
-<% if @game.deck %>
-<p>
-  Your cards are: <%= @player.hand.cards %>
-</p>
-<p>
-  Your total: <%= @player.hand.value %>
-</p>
-<br>
-<p>
-  Dealer's cards are: <%= @dealer.hand.cards %>
-</p>
-<p>
-  Dealer's total <%= @dealer.hand.value %>
-</p>
-<% end %>
+  <% if !@game.deck %>
+    <%= link_to "Deal", decks_path(deck: {game_id: @game.id}), method: :post, class: "btn btn-danger btn-xs" %>
+  <% end %>
+
+  <% if @game.deck %>
+  <p>
+    Your cards are: <%= @player.hand.cards %>
+  </p>
+  <p>
+    Your total: <%= @player.hand.value %>
+  </p>
+  <br>
+  <p>
+    Dealer's cards are: <%= @dealer.hand.cards %>
+  </p>
+  <p>
+    Dealer's total <%= @dealer.hand.value %>
+  </p>
+  <% end %>
