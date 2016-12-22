@@ -14,5 +14,7 @@ Rails.application.routes.draw do
   resources :decks, only: [:create, :update]
   resources :hands, only: [:update]
 
+  patch 'dealer_update/:dealer_hand_id/:player_hand_id', to: 'hands#dealer_update', as: 'dealer_update'
+
   root "games#index"
 end
