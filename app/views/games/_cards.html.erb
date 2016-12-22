@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row">
+    <% if @game.deck %>
+      <div class="col-md-6">
+        <p id="game_header">
+          Your cards:
+        </p>
+        <%= display_cards_for @player %>
+      </div>
+      <div class="col-md-6">
+        <% if @game.over %>
+          <p id="game_header">
+            Dealer's cards:
+          </p>
+          <%= display_cards_for @dealer %>
+        <% else %>
+          <p id="game_header">
+            Dealer's visible card is :
+          </p>
+          <%= display_card @dealer.cards.first %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

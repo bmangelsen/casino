@@ -9,9 +9,7 @@ class Player < ApplicationRecord
     self.hand.cards
   end
 
-  def svg(name)
-    file_path = "#{Rails.root}/public/images/svg/#{name}.svg"
-    return File.read(file_path).html_safe if File.exists?(file_path)
-    '(not found)'
+  def create_hand(deck)
+    self.hand = Hand.create(cards: [deck.play_card, deck.play_card])
   end
 end

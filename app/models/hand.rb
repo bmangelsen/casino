@@ -9,9 +9,14 @@ class Hand < ApplicationRecord
     end
   end
 
+  def deal
+    self.cards << player.game.deck.play_card
+    self.add_card_value(cards.last)
+  end
+
   def add_card_value(card)
     case card[0]
-    when "jack"
+      when "jack"
         self.value += 10
       when "queen"
         self.value += 10

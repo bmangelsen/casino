@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p id="player_total">
+        <% if @player.hand %>
+          Total: <%= @player.hand.value %>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-md-6">
+      <% if @game.over %>
+        <p id="dealer_total">
+          Total: <%= @dealer.hand.value %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
