@@ -5,16 +5,16 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
     if @game.save
-      @game.players << Player.create(user_id: current_user.id, game_id: @game.id)
-      @game.players << Player.create(game_id: @game.id)
+      @game.add_player(current_user)
+      @game.add_dealer
       redirect_to game_path(@game.id)
     end
   end
 
   def show
     @game = Game.find(params[:id])
-    @player = Player.find_by(user_id: current_user.id, game_id: @game.id)
-    @dealer = Player.find_by(user_id: nil, game_id: @game.id)
+    @player = @game.player(current_user)
+    @dealer = @game.dealer
   end
 
   private

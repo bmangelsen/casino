@@ -33,3 +33,7 @@
   margin-bottom: 0px;
   padding: 5px;
 }
+
+svg:not(:root) {
+float: left; 
+}

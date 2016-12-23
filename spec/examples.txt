@@ -7,5 +7,8 @@ example_id                                         | status | run_time        |
 ./spec/models/deck_spec.rb[1:1]                    | passed | 0.07862 seconds |
 ./spec/models/deck_spec.rb[1:2]                    | passed | 0.0358 seconds  |
 ./spec/models/game_spec.rb[1:1]                    | passed | 0.02039 seconds |
+./spec/models/hand_spec.rb[1:1]                    | passed | 0.01115 seconds |
+./spec/models/hand_spec.rb[1:2:1]                  | passed | 0.00159 seconds |
+./spec/models/hand_spec.rb[1:3:1]                  | passed | 0.00163 seconds |
 ./spec/models/player_spec.rb[1:1]                  | passed | 0.00443 seconds |
 ./spec/models/user_spec.rb[1:1]                    | passed | 0.0013 seconds  |
