@@ -3,9 +3,9 @@ class DecksController < ApplicationController
     @deck = Deck.new(deck_params)
     @deck.build_deck
     if @deck.save
-      player_hand = @deck.create_player_hand(current_user)
+      player_hand = @deck.player(current_user).create_hand(@deck)
       player_hand.sum_all_cards
-      dealer_hand = @deck.create_dealer_hand
+      dealer_hand = @deck.dealer.create_hand(@deck)
       dealer_hand.sum_all_cards
 
       if player_hand.is_winner?

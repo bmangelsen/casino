@@ -6,12 +6,12 @@ class Deck < ApplicationRecord
   VALUE = (2..10).to_a + ["jack", "queen", "king", "ace"]
   SUIT = ["hearts", "spades", "clubs", "diamonds"]
 
-  def create_player_hand(current_user)
-    Player.find_by(user_id: current_user.id, game_id: self.game_id).create_hand(self)
+  def player(current_user)
+    Player.find_by(user_id: current_user.id, game_id: self.game_id)
   end
 
-  def create_dealer_hand
-    Player.find_by(user_id: nil, game_id: self.game_id).create_hand(self)
+  def dealer
+    Player.find_by(user_id: nil, game_id: self.game_id)
   end
 
   def build_deck
