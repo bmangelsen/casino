@@ -7,6 +7,7 @@ module PlayersHelper
   end
 
   def display_card(card)
-    svg("#{card[0]}_of_#{card[1]}")
+    return "#{card[0]}_of_#{card[1]}"
+    # svg("#{card[0]}_of_#{card[1]}")
   end
 end

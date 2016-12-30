@@ -36,6 +36,8 @@ gem 'cancancan'
 gem 'mail'
 gem 'httparty'
 gem 'devise'
+gem 'inline_svg'
+gem 'nokogiri'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -8,7 +8,7 @@
         <%= display_cards_for @player %>
       </div>
       <div class="col-md-6">
-        <% if @game.over %>
+        <% if @game.has_winner?(current_user) %>
           <p id="game_header">
             Dealer's cards:
           </p>

@@ -12,5 +12,9 @@ App.player = App.cable.subscriptions.create("PlayerChannel", {
   received: function(data) {
     console.log("Got Stuff", data);
     // Called when there's incoming data on the websocket for this channel
+  },
+
+  start: function() {
+    return this.perform('start');
   }
 });

@@ -39,11 +39,13 @@
     </nav>
 
     <div class="container">
-      <% flash.each do |type, msg| %>
-        <div class="alert alert-<%= type %>">
-          <p><%= msg %></p>
-        </div>
-      <% end %>
+      <div class="flashes">
+        <% flash.each do |type, msg| %>
+          <div class="alert alert-<%= type %>">
+            <p><%= msg %></p>
+          </div>
+        <% end %>
+      </div>
 
       <%= yield %>
     </div>

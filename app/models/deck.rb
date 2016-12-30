@@ -6,13 +6,15 @@ class Deck < ApplicationRecord
   VALUE = (2..10).to_a + ["jack", "queen", "king", "ace"]
   SUIT = ["hearts", "spades", "clubs", "diamonds"]
 
-  def player(current_user)
-    Player.find_by(user_id: current_user.id, game_id: self.game_id)
-  end
+  before_save :build_deck, on: :create
 
-  def dealer
-    Player.find_by(user_id: nil, game_id: self.game_id)
-  end
+  # def player(current_user)
+  #   Player.find_by(user_id: current_user.id, game_id: self.game_id)
+  # end
+  #
+  # def dealer
+  #   Player.find_by(user_id: nil, game_id: self.game_id)
+  # end
 
   def build_deck
     @deck = []
@@ -22,19 +24,12 @@ class Deck < ApplicationRecord
         end
       end
     @deck = @deck.shuffle
-    self.update(cards: @deck)
+    self.cards = @deck
   end
 
   def play_card
     @card = cards.shift
     self.save
     @card
-  end
-
-  def player_winner(player_hand)
-    @user = User.find(Player.find(player_hand.player_id).user_id)
-    @user.wins += 1
-    @user.save
-    Game.find(Player.find(player_hand.player_id).game_id).update(over: true)
   end
 end
