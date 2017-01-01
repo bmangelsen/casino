@@ -9,6 +9,10 @@ Rails.application.routes.draw do
         registrations: 'users/registrations'
       }
 
+  devise_scope :user do
+    get "users/game_history", to: "users/registrations#game_history", as: "game_history"
+  end
+
   resources :players, only: [:new, :create]
   resources :games, only: [:create, :index, :show]
   resources :decks, only: [:create, :update]

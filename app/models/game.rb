@@ -1,15 +1,14 @@
 class Game < ApplicationRecord
   has_many :players
-  has_many :users, through: :players
   has_many :hands
   has_one :deck
 
   def add_player(current_user)
-    Player.create(user_id: current_user.id, game_id: self.id)
+    self.players.create(user_id: current_user.id)
   end
 
   def add_dealer
-    Player.create(game_id: self.id)
+    self.players.create
   end
 
   def player(current_user)
@@ -34,7 +33,7 @@ class Game < ApplicationRecord
     end
   end
 
-  def winner(current_user)
+  def find_winner(current_user)
     if player_hand_value(current_user) == 21
       player(current_user)
     elsif player_hand_value(current_user) > 21
@@ -43,6 +42,8 @@ class Game < ApplicationRecord
       player(current_user)
     elsif player_hand_value(current_user) > dealer_hand_value
       player(current_user)
+    elsif player_hand_value(current_user) == dealer_hand_value
+      nil
     else
       dealer
     end

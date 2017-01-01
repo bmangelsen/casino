@@ -1,0 +1,37 @@
+<h4>
+  Here's a quick rundown of your success:
+</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Game
+      </th>
+      <th>
+        Plays
+      </th>
+      <th>
+        Wins
+      </th>
+      <th>
+        Rate
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        Blackjack
+      </td>
+      <td>
+        <%= current_user.games.count %>
+      </td>
+      <td>
+        <%= won_games_for(@user) %>
+      </td>
+      <td>
+        <%= number_to_percentage(won_games_for(@user)/current_user.games.count.to_f*100, precision: 2) %>
+      </td>
+    </tr>
+  </tbody>
+</table>
