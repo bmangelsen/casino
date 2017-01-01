@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get "users/game_history", to: "users/registrations#game_history", as: "game_history"
+    get "users/admin_view", to: "users/registrations#admin_view", as: "admin_view"
   end
 
   resources :players, only: [:new, :create]
@@ -18,8 +19,9 @@ Rails.application.routes.draw do
   resources :decks, only: [:create, :update]
   resources :hands, only: [:update]
 
-  post '/display_cards', to: 'hands#cards', as: 'display_cards'
-
+  get '/game_type/:id/activate', to: 'game_type#activate', as: 'activate'
+  get '/game_type/:id/rules', to: 'game_type#rules', as: 'rules'
+  get '/game_type/:id/deactivate', to: 'game_type#deactivate', as: 'deactivate'
   post '/hands/create_deck', to: 'hands#create_deck', as: 'create_deck'
 
   root "games#index"

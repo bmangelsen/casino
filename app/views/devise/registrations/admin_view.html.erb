@@ -1,0 +1,35 @@
+<h3>
+  Administrator
+</h3>
+<br>
+<h5>
+  <%= users_count %> currently active users:
+</h5>
+
+<% users.each do |user| %>
+  <p>
+    <%= user.email %>
+  </p>
+<% end %>
+<hr>
+<h5>
+  Games:
+</h5>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+      <% GameType.all.each do |type| %>
+        <p><%= type.name %></p>
+        <p><%= "Currently Active" if type.active == true %></p>
+        <p><%= "Currently Inactive" if type.active == false %></p>
+        <% if type.active == true %>
+          <%= link_to "Deactivate", deactivate_path(type.id), class: "btn btn-danger btn-xs" %>
+        <% else %>
+          <%= link_to "Activate", activate_path(type.id), class: "btn btn-success btn-xs"%>
+        <% end %>
+        <hr>
+      <% end %>
+    </div>
+  </div>
+</div>

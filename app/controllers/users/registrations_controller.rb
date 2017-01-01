@@ -6,6 +6,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     @user = current_user
   end
 
+  def admin_view
+  end
+
   # GET /resource/sign_up
   # def new
   #   super

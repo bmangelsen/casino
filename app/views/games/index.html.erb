@@ -1,23 +1,32 @@
+<h3>Welcome to the Casino</h3>
+<br>
 <% if current_user %>
-  <h4>
-    Hop into one of our games below!
-  </h4>
+  <h5>
+    Check out the game rules or hop right on in:
+  </h5>
 <% else %>
-  <h4>
+  <h5>
     Go ahead and log in so you can start playing one of these fabulous games.
-  </h4>
+  </h5>
 <% end %>
-
+<br>
 <div class="container">
   <div class="row">
-    <div id="game">
-      <p>
-        Blackjack!
-      </p>
-      <% if current_user %>
-        <%= link_to "Start Game", games_path(game: {host: current_user}), method: :post, class: "btn btn-danger btn-xs" %>
-        <%= link_to "Join Game", games_path, class: "btn btn-info btn-xs" %>
+    <% GameType.all.each do |type| %>
+      <% if type.active == true %>
+        <div id="game">
+          <p>
+            <%= type.name %>
+          </p>
+          <p>
+            <%= link_to "Rules", "https://en.wikipedia.org/wiki/#{type.name}" %>
+          </p>
+          <% if current_user %>
+            <%= link_to "Start Game", games_path(game: {host: current_user}), method: :post, class: "btn btn-danger btn-xs" %>
+            <%= link_to "Join Game", games_path, class: "btn btn-info btn-xs" %>
+          <% end %>
+        </div>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
