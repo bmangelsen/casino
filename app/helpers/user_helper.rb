@@ -3,16 +3,16 @@ module UserHelper
     Game.where(winner: user.id).count
   end
 
-  def users
+  def find_users
     User.where(admin: false)
   end
 
-  def users_count
-    users.count
+  def count_users
+    find_users.count
   end
 
   def display_user_emails
-    users.map do |user|
+    find_users.map do |user|
       user.email
     end
   end
