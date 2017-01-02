@@ -3,10 +3,10 @@
 </h3>
 <br>
 <h5>
-  <%= users_count %> currently active users:
+  <%= count_users %> currently active users:
 </h5>
 
-<% users.each do |user| %>
+<% find_users.each do |user| %>
   <p>
     <%= user.email %>
   </p>

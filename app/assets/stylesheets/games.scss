@@ -11,22 +11,39 @@
   width: 200px;
 }
 
+#table {
+  background-color: #2d7921;
+  border-radius: 20px;
+}
+
 p {
   margin: 0px;
 }
 
 #game_header {
   font-size: 30px;
+  color: black;
 }
 
 #player_total {
   font-size: 20px;
-}
-
-#dealer_total {
-  font-size: 20px;
+  color: black;
 }
 
 #buttons {
   text-align: center;
+}
+
+.col-md-6 {
+  text-align: center;
+}
+
+.col-md-12 {
+  text-align: center;
+}
+
+hr {
+    border: none;
+    height: 5px;
+    background-color: black;
 }

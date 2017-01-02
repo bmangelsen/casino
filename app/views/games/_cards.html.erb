@@ -1,25 +1,59 @@
-<div class="container">
-  <div class="row">
-    <% if @game.deck %>
-      <div class="col-md-6">
-        <p id="game_header">
-          Your cards:
-        </p>
-        <%= display_cards_for @player %>
+<div id="table">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div id="hand">
+          <% if @game.has_winner?(current_user) && @game.drawing_complete == true %>
+          <br>
+            <p id="game_header">
+              Dealer's cards:
+            </p>
+            <%= display_cards_for(@dealer) %>
+            <p id="player_total">
+              Total: <%= @dealer.hand.value %>
+            </p>
+          <% else %>
+          <br>
+            <p id="game_header">
+              Dealer's visible card is:
+            </p>
+            <%= display_card(@dealer.cards.first) %>
+          <% end %>
+        </div>
       </div>
-      <div class="col-md-6">
-        <% if @game.has_winner?(current_user) && @game.drawing_complete == true %>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="container">
+    <div class="row">
+      <% if @game.players.count == 2 %>
+        <div class="col-md-12">
           <p id="game_header">
-            Dealer's cards:
+            Your cards:
           </p>
-          <%= display_cards_for(@dealer) %>
-        <% else %>
+          <%= display_cards_for @player %>
+          <p id="player_total">
+            Total: <%= @player.hand.value %>
+          </p>
+          <br>
+        </div>
+      <% else %>
+        <div class="col-md-6">
           <p id="game_header">
-            Dealer's visible card is :
+            Your cards:
           </p>
-          <%= display_card(@dealer.cards.first) %>
-        <% end %>
-      </div>
-    <% end %>
+          <%= display_cards_for @player %>
+        </div>
+        <div class="col-md-6">
+          <p id="game_header">
+            Other player's cards:
+          </p>
+          Display cards for other player
+        </div>
+        <br>
+      <% end %>
+    </div>
   </div>
 </div>
