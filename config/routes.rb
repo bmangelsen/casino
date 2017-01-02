@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     get "users/admin_view", to: "users/registrations#admin_view", as: "admin_view"
   end
 
+  get '/games/join_game', to: 'games#join_game', as: 'join_game'
+
   resources :players, only: [:new, :create]
   resources :games, only: [:create, :index, :show]
   resources :decks, only: [:create, :update]

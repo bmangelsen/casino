@@ -29,8 +29,32 @@ class GamesController < ApplicationController
     end
   end
 
+  def join_game
+    @game = Game.find_by(winner: nil)
+    if @game
+      if @game.host == current_user.id
+        flash[:notice] = "Looks like you started this game, welcome back!"
+      else
+        human = @game.add_player(current_user)
+        human.create_hand(@game.deck)
+        human.hand.cards.clear
+        human.hand.save
+        flash[:notice] = "Welcome! Please wait until current game concludes."
+      end
+      redirect_to game_path(@game)
+    else
+      redirect_to root_path
+      flash[:notice] = "No active games! Try creating one"
+    end
+  end
+
   private
   def game_params
     params.require(:game).permit(:host)
+  end
+
+  private
+  def broadcast(message)
+    ActionCable.server.broadcast("game_#{@game.id}", message: message, content: render_to_string(@game))
   end
 end

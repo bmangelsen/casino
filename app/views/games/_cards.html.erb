@@ -48,9 +48,9 @@
         </div>
         <div class="col-md-6">
           <p id="game_header">
-            Other player's cards:
+            <%= User.find(other_player(@game).user_id).email %>'s cards
           </p>
-          Display cards for other player
+          <%= display_cards_for other_player(@game) %>
         </div>
         <br>
       <% end %>
