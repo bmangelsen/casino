@@ -2,13 +2,23 @@ class Game < ApplicationRecord
   has_many :players
   has_many :hands
   has_one :deck
+  belongs_to :table
 
-  def add_player(current_user)
-    self.players.create(user_id: current_user.id)
+  def setup
+    self.build_deck
+    self.add_players
+    self.create_player_hands
+    save
   end
 
-  def add_dealer
-    self.players.create
+  def create_player_hands
+    players.each do |player|
+      player.create_hand(self.deck)
+    end
+  end
+
+  def add_players
+    players << table.players
   end
 
   def player(current_user)
@@ -20,11 +30,11 @@ class Game < ApplicationRecord
   end
 
   def dealer_hand_value
-    self.dealer.hand.value
+    dealer.hand.value
   end
 
   def player_hand_value(current_user)
-    self.player(current_user).hand.value
+    player(current_user).hand.value
   end
 
   def has_winner?(current_user)
@@ -49,4 +59,7 @@ class Game < ApplicationRecord
     end
   end
 
+  def human_players
+    players.where(user: nil)
+  end
 end

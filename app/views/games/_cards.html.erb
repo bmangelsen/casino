@@ -33,26 +33,28 @@
           <p id="game_header">
             Your cards:
           </p>
-          <%= display_cards_for @player %>
+          <%= display_cards_for human_players(@game)[0] %>
           <p id="player_total">
-            Total: <%= @player.hand.value %>
+            Total: <%= human_players(@game)[0].hand.value %>
           </p>
-          <br>
         </div>
       <% else %>
-        <div class="col-md-6">
-          <p id="game_header">
-            Your cards:
-          </p>
-          <%= display_cards_for @player %>
-        </div>
-        <div class="col-md-6">
-          <p id="game_header">
-            <%= User.find(other_player(@game).user_id).email %>'s cards
-          </p>
-          <%= display_cards_for other_player(@game) %>
-        </div>
-        <br>
+        <% human_players(@game).each do |player| %>
+          <div class="col-md-6">
+            <% if player.hand %>
+              <p id="game_header">
+                <%= player.user.email %>'s cards:
+              </p>
+              <%= display_cards_for player %>
+              <p id="player_total">
+                Total: <%= player.hand.value %>
+              </p>
+            <% else %>
+              Waiting until current game has concluded
+            <% end %>
+            </p>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -22,8 +22,9 @@
             <%= link_to "Rules", "https://en.wikipedia.org/wiki/#{type.name}" %>
           </p>
           <% if current_user %>
-            <%= link_to "Start Game", games_path(game: {host: current_user}), method: :post, class: "btn btn-danger btn-xs" %>
-            <%= link_to "Join Game", join_game_path, class: "btn btn-info btn-xs" %>
+            <%= link_to "Join a table!", join_table_path, class: "btn btn-info btn-sx" %>
+             <!-- link_to "Start Game", games_path(game: {host: current_user}), method: :post, class: "btn btn-danger btn-xs" %> -->
+            <!-- link_to "Join Game", join_game_path, class: "btn btn-info btn-xs" -->
           <% end %>
         </div>
       <% end %>

@@ -1,9 +1,8 @@
 class Player < ApplicationRecord
-  belongs_to :game
   belongs_to :user
+  belongs_to :table
+  has_many :games
   has_one :hand
-
-  validates :game_id, presence: true
 
   def cards
     self.hand.cards

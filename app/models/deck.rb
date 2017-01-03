@@ -1,22 +1,15 @@
 class Deck < ApplicationRecord
   belongs_to :game
 
-  serialize :cards
+  serialize :cards, Array
 
   VALUE = (2..10).to_a + ["jack", "queen", "king", "ace"]
   SUIT = ["hearts", "spades", "clubs", "diamonds"]
 
-  before_save :build_deck, on: :create
-
-  # def player(current_user)
-  #   Player.find_by(user_id: current_user.id, game_id: self.game_id)
-  # end
-  #
-  # def dealer
-  #   Player.find_by(user_id: nil, game_id: self.game_id)
-  # end
+  after_initialize :build_deck
 
   def build_deck
+    return if cards.length == 52
     @deck = []
       VALUE.each do |value|
         SUIT.each do |suit|

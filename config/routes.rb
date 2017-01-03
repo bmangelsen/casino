@@ -14,17 +14,17 @@ Rails.application.routes.draw do
     get "users/admin_view", to: "users/registrations#admin_view", as: "admin_view"
   end
 
-  get '/games/join_game', to: 'games#join_game', as: 'join_game'
+  get '/tables/join_table', to: 'tables#join_table', as: 'join_table'
 
   resources :players, only: [:new, :create]
   resources :games, only: [:create, :index, :show]
   resources :decks, only: [:create, :update]
   resources :hands, only: [:update]
+  resources :tables, only: [:destroy]
 
-  get '/game_type/:id/activate', to: 'game_type#activate', as: 'activate'
   get '/game_type/:id/rules', to: 'game_type#rules', as: 'rules'
+  get '/game_type/:id/activate', to: 'game_type#activate', as: 'activate'
   get '/game_type/:id/deactivate', to: 'game_type#deactivate', as: 'deactivate'
-  post '/hands/create_deck', to: 'hands#create_deck', as: 'create_deck'
 
   root "games#index"
 end

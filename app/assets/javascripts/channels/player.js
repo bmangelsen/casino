@@ -1,6 +1,6 @@
 App.player = App.cable.subscriptions.create("PlayerChannel", {
   connected: function() {
-    console.log("Connected");
+    console.log("Player Connected");
     // Called when the subscription is ready for use on the server
   },
 
@@ -14,7 +14,7 @@ App.player = App.cable.subscriptions.create("PlayerChannel", {
     // Called when there's incoming data on the websocket for this channel
   },
 
-  start: function() {
-    return this.perform('start');
+  deal: function() {
+    return this.perform('deal');
   }
 });

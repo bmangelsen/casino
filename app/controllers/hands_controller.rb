@@ -23,6 +23,7 @@ class HandsController < ApplicationController
         @game.update(winner: "dealer")
         broadcast("You lose! Would you like to play again?")
       else
+        @game.update(winner: "no one")
         broadcast("No one wins! Would you like to play again?")
       end
     else
@@ -32,6 +33,8 @@ class HandsController < ApplicationController
 
   private
   def broadcast(message)
-    ActionCable.server.broadcast("game_#{@game.id}", message: message, content: render_to_string(@game))
+    # @game.human_players.each do |player|
+      ActionCable.server.broadcast("game_#{@game.id}", message: message, content: render_to_string(@game))
+    # end
   end
 end
