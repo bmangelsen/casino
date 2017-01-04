@@ -3,17 +3,19 @@ class GamesController < ApplicationController
   def index
   end
 
+  def create
+    @game = Game.new(game_params)
+    @game.setup
+    if @game.save
+      redirect_to game_path(@game.id)
+      broadcast("New game has begun!")
+    end
+  end
+
   def show
     @game = Game.find(params[:id])
     @player = @game.player(current_user)
     @dealer = @game.dealer
-    if @game.has_winner?(current_user)
-      if @game.find_winner(current_user) == @player
-        @game.update(winner: @player.user_id)
-        @game.update(drawing_complete: true)
-        flash[:notice] = "You win! Would you like to play again?"
-      end
-    end
   end
 
   private
@@ -25,6 +27,8 @@ class GamesController < ApplicationController
   def broadcast(message)
     @player = @game.player(current_user)
     @dealer = @game.dealer
-    ActionCable.server.broadcast("game_#{@game.id}", message: message, content: render_to_string(@game))
+    @game.human_players.each do |player|
+      PlayerChannel.broadcast_to(player.user, message: message, content: render_to_string(@game, locals: { player: player, dealer: @dealer, game: @game }))
+    end
   end
 end

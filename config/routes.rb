@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   get '/tables/join_table', to: 'tables#join_table', as: 'join_table'
+  get '/tables/leave_table', to: 'tables#leave_table', as: 'leave_table'
 
   resources :players, only: [:new, :create]
   resources :games, only: [:create, :index, :show]

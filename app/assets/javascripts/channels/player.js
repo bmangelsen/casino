@@ -11,6 +11,8 @@ App.player = App.cable.subscriptions.create("PlayerChannel", {
 
   received: function(data) {
     console.log("Got Stuff", data);
+    $(".gameShow").html(data.content);
+    $(".flashes").html(data.message);
     // Called when there's incoming data on the websocket for this channel
   },
 

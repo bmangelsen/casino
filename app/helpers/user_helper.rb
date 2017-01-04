@@ -3,6 +3,10 @@ module UserHelper
     Game.where(winner: user.id).count
   end
 
+  def total_games_for(user)
+
+  end
+
   def find_users
     User.where(admin: false)
   end

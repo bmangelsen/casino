@@ -3,21 +3,21 @@
     <div class="row">
       <div class="col-md-12">
         <div id="hand">
-          <% if @game.has_winner?(current_user) && @game.drawing_complete == true %>
+          <% if game.has_winner?(current_user) && game.over == true %>
           <br>
             <p id="game_header">
               Dealer's cards:
             </p>
-            <%= display_cards_for(@dealer) %>
+            <%= display_cards_for(dealer) %>
             <p id="player_total">
-              Total: <%= @dealer.hand.value %>
+              Total: <%= dealer.hand.value %>
             </p>
           <% else %>
           <br>
             <p id="game_header">
               Dealer's visible card is:
             </p>
-            <%= display_card(@dealer.cards.first) %>
+            <%= display_card(dealer.cards.first) %>
           <% end %>
         </div>
       </div>
@@ -28,18 +28,18 @@
 
   <div class="container">
     <div class="row">
-      <% if @game.players.count == 2 %>
+      <% if game.players.count == 2 %>
         <div class="col-md-12">
           <p id="game_header">
             Your cards:
           </p>
-          <%= display_cards_for human_players(@game)[0] %>
+          <%= display_cards_for human_players(game)[0] %>
           <p id="player_total">
-            Total: <%= human_players(@game)[0].hand.value %>
+            Total: <%= human_players(game)[0].hand.value %>
           </p>
         </div>
       <% else %>
-        <% human_players(@game).each do |player| %>
+        <% human_players(game).each do |player| %>
           <div class="col-md-6">
             <% if player.hand %>
               <p id="game_header">

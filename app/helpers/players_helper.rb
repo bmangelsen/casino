@@ -10,6 +10,6 @@ module PlayersHelper
   end
 
   def human_players(game)
-    game.players.where(user: nil)
+    game.players.where.not(user: nil)
   end
 end

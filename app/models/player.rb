@@ -1,11 +1,16 @@
 class Player < ApplicationRecord
   belongs_to :user
   belongs_to :table
-  has_many :games
+  has_many :player_games
+  has_many :games, through: :player_games
   has_one :hand
 
   def cards
     self.hand.cards
+  end
+
+  def game
+    hand.game
   end
 
   def create_hand(deck)

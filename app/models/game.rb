@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
-  has_many :players
+  has_many :player_games
+  has_many :players, through: :player_games
   has_many :hands
   has_one :deck
   belongs_to :table
@@ -9,6 +10,7 @@ class Game < ApplicationRecord
     self.add_players
     self.create_player_hands
     save
+    self.add_own_id_to_players
   end
 
   def create_player_hands
@@ -18,7 +20,13 @@ class Game < ApplicationRecord
   end
 
   def add_players
-    players << table.players
+    self.players = table.players
+  end
+
+  def add_own_id_to_players
+    self.players.each do |player|
+      player.update(game_id: self.id)
+    end
   end
 
   def player(current_user)
@@ -38,7 +46,7 @@ class Game < ApplicationRecord
   end
 
   def has_winner?(current_user)
-    if player_hand_value(current_user) >= 21 || dealer_hand_value >= 21 || self.drawing_complete == true
+    if player_hand_value(current_user) >= 21 || dealer_hand_value >= 21 || self.over == true
       true
     end
   end
@@ -60,6 +68,6 @@ class Game < ApplicationRecord
   end
 
   def human_players
-    players.where(user: nil)
+    players.where.not(user: nil)
   end
 end

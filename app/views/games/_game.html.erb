@@ -1,6 +1,6 @@
 <br>
-<%= render "games/buttons" %>
+<%= render partial: "games/buttons", locals: {game: game, player: player, dealer: dealer } %>
 <br>
 <br>
 
-<%= render "games/cards" %>
+<%= render partial: "games/cards", locals: {game: game, player: player, dealer: dealer } %>

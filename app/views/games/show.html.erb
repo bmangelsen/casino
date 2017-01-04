@@ -1,7 +1,7 @@
+<% game ||= @game %>
+<% player ||= @player %>
+<% dealer ||= @dealer %>
+
 <div class="gameShow">
-  <%= render @game %>
-</div>
-
-<div class="cardShow">
-
+  <%= render partial: "games/game", locals: {game: game, player: player, dealer: dealer } %>
 </div>
