@@ -2,8 +2,9 @@ class HandsController < ApplicationController
   def update
     @hand = Hand.find(params[:id])
     @game = @hand.game
-    @player = @game.player(current_user)
-    @dealer = @game.dealer
+    @table = @game.table
+    @player = @table.player(current_user)
+    @dealer = @table.dealer
 
     if @hand.belongs_to_player?(@hand.player_id, current_user)
       @hand.deal
@@ -14,12 +15,12 @@ class HandsController < ApplicationController
       @game.update(over: true)
     end
 
-    if (@game.has_winner?(current_user) && @game.over == true) || @player.hand.value >= 21
+    if (@table.has_winner?(current_user) && @game.over == true) || @player.hand.value >= 21
       @game.update(over: true)
-      if @game.find_winner(current_user) == @player
+      if @table.find_winner(current_user) == @player
         @game.update(winner: @player.user_id)
         broadcast("You win! Would you like to play again?")
-      elsif @game.find_winner(current_user) == @dealer
+      elsif @table.find_winner(current_user) == @dealer
         @game.update(winner: "dealer")
         broadcast("You lose! Would you like to play again?")
       else
@@ -33,8 +34,11 @@ class HandsController < ApplicationController
 
   private
   def broadcast(message)
-    @game.human_players.each do |player|
-      PlayerChannel.broadcast_to(player.user, message: message, content: render_to_string(@game, locals: { player: player, dealer: @dealer, game: @game }))
+    @game.table.human_players.each do |player|
+      PlayerChannel.broadcast_to(
+      player.user,
+      message: message,
+      content: render_to_string(@game, locals: { player: player, dealer: @dealer, game: @game }))
     end
   end
 end

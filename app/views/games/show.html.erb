@@ -2,6 +2,8 @@
 <% player ||= @player %>
 <% dealer ||= @dealer %>
 
-<div class="gameShow">
+<%= content_tag :div, id: "game-#{game.id}", class: "current-game gameShow", data: { game_id: game.id, table_id: game.table_id } do %>
+
   <%= render partial: "games/game", locals: {game: game, player: player, dealer: dealer } %>
-</div>
+
+<% end %>

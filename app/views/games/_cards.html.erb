@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div id="hand">
-          <% if game.has_winner?(current_user) && game.over == true %>
+          <% if game.table.has_winner?(current_user) && game.over == true %>
           <br>
             <p id="game_header">
               Dealer's cards:
