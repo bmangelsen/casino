@@ -3,7 +3,9 @@ class TablesController < ApplicationController
     @table = Table.find_table
     @table.add_player(current_user)
     if @table.games.any?
-      redirect_to game_path(@table.games.last.id)
+      flash[:notice] = "Table found! Waiting for game in progress to conclude..."
+      # redirect_to game_path(@table.games.last.id)
+      # add event listener for the contents of a div? C'EST POSSIBLE?!
       broadcast("#{current_user.email} has joined the game!")
     else
       @game = Game.new(table: @table, host: current_user.id)
@@ -25,11 +27,14 @@ class TablesController < ApplicationController
   def broadcast(message)
     @game = @table.games.last
     @dealer = @table.dealer
-    @game.table.human_players.each do |player|
+    @game.human_players.each do |player|
       PlayerChannel.broadcast_to(
-      player.user,
-      message: message,
-      content: render_to_string(@game, locals: { player: player, dealer: @dealer, game: @game }))
+        player.user,
+        event: 'game_refresh',
+        message: message,
+        content: render_to_string(@game, locals: { current_player: player, dealer: @dealer, game: @game }
+        )
+      )
     end
   end
 end

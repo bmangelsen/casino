@@ -14,7 +14,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @player = @game.table.player(current_user)
+    @player = @game.player_for(current_user)
     @dealer = @game.table.dealer
   end
 
@@ -26,8 +26,14 @@ class GamesController < ApplicationController
   private
   def broadcast(message)
     @dealer = @game.table.dealer
-    @game.table.human_players.each do |player|
-      PlayerChannel.broadcast_to(player.user, message: message, content: render_to_string(@game, locals: { player: player, dealer: @dealer, game: @game }))
+    @game.human_players.each do |player|
+      PlayerChannel.broadcast_to(
+        player.user,
+        event: 'game_refresh',
+        message: message,
+        content: render_to_string(@game, locals: { current_player: player, dealer: @dealer, game: @game }
+        )
+      )
     end
   end
 end

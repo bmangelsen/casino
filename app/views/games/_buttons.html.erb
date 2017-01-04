@@ -3,14 +3,29 @@
   <p>
     Table players: <%= game.table.players.count %>
   </p>
-  <div class="row" id="buttons">
-    <% if game.over %>
-      <%= link_to "New Game!", games_path(game: {host: current_user.id, table_id: game.table.id}), method: :post, class: "btn btn-danger btn-lg" %>
-    <% else %>
-      <% if Player.find_by(game_id: game.id, id: player.id) %>
-        <%= link_to "Hit", hand_path(player.hand.id), method: :patch, class: "btn btn-danger btn-lg" %>
-        <%= link_to "Stand", hand_path(dealer.hand.id), method: :patch, class: "btn btn-info btn-lg" %>
+  <p>
+    <pre>
+      <code>
+        Current player: <%= current_player&.user&.email %>
+        <%= Time.now %>
+
+        <%= game.human_players.to_a.to_json %>
+      </code>
+    </pre>
+
+
+  </p>
+  <% if current_player %>
+
+    <div class="row" id="buttons">
+      <% if game.over %>
+        <%= link_to "New Game!", games_path(game: {host: current_user.id, table_id: game.table.id}), method: :post, class: "btn btn-danger btn-lg" %>
+      <% else %>
+        <% if Player.find_by(game_id: game.id, id: current_player.id) %>
+          <%= link_to "Hit", hand_path(current_player.hand.id), method: :patch, class: "btn btn-danger btn-lg" %>
+          <%= link_to "Stand", hand_path(dealer.hand.id), method: :patch, class: "btn btn-info btn-lg" %>
+        <% end %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

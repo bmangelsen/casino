@@ -3,7 +3,7 @@ class HandsController < ApplicationController
     @hand = Hand.find(params[:id])
     @game = @hand.game
     @table = @game.table
-    @player = @table.player(current_user)
+    @player = @game.player_for(current_user)
     @dealer = @table.dealer
 
     if @hand.belongs_to_player?(@hand.player_id, current_user)
@@ -34,11 +34,14 @@ class HandsController < ApplicationController
 
   private
   def broadcast(message)
-    @game.table.human_players.each do |player|
+    @game.human_players.each do |player|
       PlayerChannel.broadcast_to(
-      player.user,
-      message: message,
-      content: render_to_string(@game, locals: { player: player, dealer: @dealer, game: @game }))
+        player.user,
+        event: 'game_refresh',
+        message: message,
+        content: render_to_string(@game, locals: { current_player: player, dealer: @dealer, game: @game }
+        )
+      )
     end
   end
 end

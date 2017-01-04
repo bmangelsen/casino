@@ -10,11 +10,16 @@ App.player = App.cable.subscriptions.create("PlayerChannel", {
   },
 
   received: function(data) {
-    console.log("Got Stuff", data);
+    console.log("Message from player channel", data);
+    if (data.event == "game_refresh") {
+      updateGameBoard(data);
+    }
+    // Called when there's incoming data on the websocket for this channel
+
+  function updateGameBoard(data) {
     $(".gameShow").html(data.content);
     $(".flashes").html(data.message);
-    // Called when there's incoming data on the websocket for this channel
-  },
+  }},
 
   deal: function() {
     return this.perform('deal');

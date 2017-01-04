@@ -28,34 +28,39 @@
 
   <div class="container">
     <div class="row">
-      <% if game.players.count == 2 %>
-        <div class="col-md-12">
-          <p id="game_header">
-            Your cards:
-          </p>
-          <%= display_cards_for human_players(game)[0] %>
-          <p id="player_total">
-            Total: <%= human_players(game)[0].hand.value %>
-          </p>
-        </div>
-      <% else %>
-        <% human_players(game).each do |player| %>
-          <div class="col-md-6">
-            <% if player.hand %>
-              <p id="game_header">
-                <%= player.user.email %>'s cards:
-              </p>
-              <%= display_cards_for player %>
-              <p id="player_total">
-                Total: <%= player.hand.value %>
-              </p>
-            <% else %>
-              Waiting until current game has concluded
-            <% end %>
+        <% if current_player %>
+          <div class="col-md-12">
+            <p id="game_header">
+              Your cards:
+            </p>
+            <%= display_cards_for current_player %>
+            <p id="player_total">
+              Total: <%= current_player.hand.value %>
             </p>
           </div>
         <% end %>
-      <% end %>
+
+
+        <div class="row">
+          <% game.human_players.each do |human| %>
+            <% next if human == current_player  %>
+            <div class="col-md-<%= (12 / human_players(game).count).floor %> %>">
+              <% if human.hand %>
+                <p id="game_header">
+                  <%= human.user.email %>'s cards:
+                </p>
+                <%= display_cards_for human %>
+                <p id="player_total">
+                  Total: <%= human.hand.value %>
+                </p>
+              <% else %>
+                Waiting until current game has concluded
+              <% end %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+
     </div>
   </div>
 </div>

@@ -19,8 +19,16 @@ class Game < ApplicationRecord
     end
   end
 
+  def player_for(user)
+    players.find_by(user: user)
+  end
+
   def add_players
     self.players = table.players
+  end
+
+  def human_players
+    players.where.not(user: nil)
   end
 
   def add_own_id_to_players
