@@ -8,14 +8,15 @@ class GamesController < ApplicationController
     @game.setup
     if @game.save
       redirect_to game_path(@game.id)
-      broadcast("New game has begun!", "new_game")
+      @game.check_for_winner
+      broadcast("", "new_game")
     end
   end
 
   def show
     @game = Game.find(params[:id])
     @player = @game.player_for(current_user)
-    @dealer = @game.table.dealer
+    @dealer = @game.dealer
   end
 
   private
@@ -25,7 +26,7 @@ class GamesController < ApplicationController
 
   private
   def broadcast(message, event)
-    @dealer = @game.table.dealer
+    @dealer = @game.dealer
     @game.human_players.each do |player|
       PlayerChannel.broadcast_to(
         player.user,

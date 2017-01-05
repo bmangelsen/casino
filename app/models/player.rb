@@ -16,4 +16,8 @@ class Player < ApplicationRecord
   def create_hand(deck)
     self.hand = Hand.create(cards: [deck.play_card, deck.play_card], game_id: deck.game_id)
   end
+
+  def email
+    self.user.email
+  end
 end

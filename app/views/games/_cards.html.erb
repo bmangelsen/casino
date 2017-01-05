@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div id="hand">
-          <% if game.table.has_winner?(current_user) && game.over == true %>
+          <% if game.over == true %>
           <br>
             <p id="game_header">
               Dealer's cards:
@@ -37,14 +37,15 @@
             <p id="player_total">
               Total: <%= current_player.hand.value %>
             </p>
+            <br>
           </div>
         <% end %>
 
 
         <div class="row">
-          <% game.human_players.each do |human| %>
+          <% game.other_human_players(current_player).each do |human| %>
             <% next if human == current_player  %>
-            <div class="col-md-<%= (12 / human_players(game).count).floor %> %>">
+            <div class="col-md-<%= (12 / game.other_human_players(current_player).count).floor %> %>">
               <% if human.hand %>
                 <p id="game_header">
                   <%= human.user.email %>'s cards:

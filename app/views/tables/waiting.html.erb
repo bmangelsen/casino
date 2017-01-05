@@ -1,0 +1,11 @@
+<% game ||= @game %>
+
+<%= content_tag :div, id: "game-#{game.id}", class: "current-game", data: { game_id: game.id, table_id: game.table_id } do %>
+  <div class="cat">
+    <h5>
+      Please enjoy this cat for the time being.
+    </h5>
+    <br><br>
+    <%= image_tag("cat.jpeg") %>
+  </div>
+<% end %>

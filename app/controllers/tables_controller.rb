@@ -30,7 +30,7 @@ class TablesController < ApplicationController
 
   def broadcast(message, event)
     @game = @table.games.last
-    @dealer = @table.dealer
+    @dealer = @game.dealer
     @game.human_players.each do |player|
       PlayerChannel.broadcast_to(
         player.user,

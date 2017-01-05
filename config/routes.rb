@@ -21,8 +21,10 @@ Rails.application.routes.draw do
   resources :players, only: [:new, :create]
   resources :games, only: [:create, :index, :show]
   resources :decks, only: [:create, :update]
-  resources :hands, only: [:update]
+  # resources :hands, only: [:update]
   resources :tables, only: [:destroy]
+
+  patch '/hands/:id(/:stand)', to: 'hands#update', as: 'hand'
 
   get '/game_type/:id/rules', to: 'game_type#rules', as: 'rules'
   get '/game_type/:id/activate', to: 'game_type#activate', as: 'activate'

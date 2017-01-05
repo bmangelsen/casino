@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170104131039) do
+ActiveRecord::Schema.define(version: 20170105162225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,11 +31,12 @@ ActiveRecord::Schema.define(version: 20170104131039) do
 
   create_table "games", force: :cascade do |t|
     t.integer  "host"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.boolean  "over",       default: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.boolean  "over",                default: false
     t.text     "winner"
     t.integer  "table_id"
+    t.integer  "current_turn_player"
   end
 
   create_table "hands", force: :cascade do |t|
@@ -54,9 +55,10 @@ ActiveRecord::Schema.define(version: 20170104131039) do
   create_table "players", force: :cascade do |t|
     t.integer  "game_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "table_id"
+    t.boolean  "turn_over",  default: false
   end
 
   create_table "tables", force: :cascade do |t|

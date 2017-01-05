@@ -44,4 +44,8 @@ class Hand < ApplicationRecord
         card[0]
     end
   end
+
+  def bust?
+    self.value > 21
+  end
 end
