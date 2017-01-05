@@ -1,3 +1,5 @@
+var gameId = $(".current-game").data("game-id");
+
 App.player = App.cable.subscriptions.create("PlayerChannel", {
   connected: function() {
     console.log("Player Connected");
@@ -14,12 +16,22 @@ App.player = App.cable.subscriptions.create("PlayerChannel", {
     if (data.event == "game_refresh") {
       updateGameBoard(data);
     }
+
+    if (data.event == "new_game") {
+      newGameBoard(data);
+    }
     // Called when there's incoming data on the websocket for this channel
 
-  function updateGameBoard(data) {
-    $(".gameShow").html(data.content);
-    $(".flashes").html(data.message);
-  }},
+    function newGameBoard(data) {
+      $(".gameShow").html(data.content);
+      $(".flashes").html(data.message);
+      location.assign(window.location.origin + "/games/" + (gameId + 1));
+    }
+
+    function updateGameBoard(data) {
+      $(".gameShow").html(data.content);
+      $(".flashes").html(data.message);
+    }},
 
   deal: function() {
     return this.perform('deal');

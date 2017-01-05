@@ -8,7 +8,7 @@ class GamesController < ApplicationController
     @game.setup
     if @game.save
       redirect_to game_path(@game.id)
-      broadcast("New game has begun!")
+      broadcast("New game has begun!", "new_game")
     end
   end
 
@@ -24,12 +24,12 @@ class GamesController < ApplicationController
   end
 
   private
-  def broadcast(message)
+  def broadcast(message, event)
     @dealer = @game.table.dealer
     @game.human_players.each do |player|
       PlayerChannel.broadcast_to(
         player.user,
-        event: 'game_refresh',
+        event: event,
         message: message,
         content: render_to_string(@game, locals: { current_player: player, dealer: @dealer, game: @game }
         )

@@ -19,25 +19,25 @@ class HandsController < ApplicationController
       @game.update(over: true)
       if @table.find_winner(current_user) == @player
         @game.update(winner: @player.user_id)
-        broadcast("You win! Would you like to play again?")
+        broadcast("You win! Would you like to play again?", "game_refresh")
       elsif @table.find_winner(current_user) == @dealer
         @game.update(winner: "dealer")
-        broadcast("You lose! Would you like to play again?")
+        broadcast("You lose! Would you like to play again?", "game_refresh")
       else
         @game.update(winner: "no one")
-        broadcast("No one wins! Would you like to play again?")
+        broadcast("No one wins! Would you like to play again?", "game_refresh")
       end
     else
-      broadcast("")
+      broadcast("", "game_refresh")
     end
   end
 
   private
-  def broadcast(message)
+  def broadcast(message, event)
     @game.human_players.each do |player|
       PlayerChannel.broadcast_to(
         player.user,
-        event: 'game_refresh',
+        event: event,
         message: message,
         content: render_to_string(@game, locals: { current_player: player, dealer: @dealer, game: @game }
         )
