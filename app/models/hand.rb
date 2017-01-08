@@ -4,14 +4,6 @@ class Hand < ApplicationRecord
 
   serialize :cards
 
-  def belongs_to_player?(player_id, current_user)
-    if Player.find_by(id: player_id, user_id: current_user.id)
-      true
-    else
-      false
-    end
-  end
-
   def deal
     self.cards << player.game.deck.play_card
     self.save

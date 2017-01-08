@@ -9,7 +9,15 @@ class TablesController < ApplicationController
     else
       @game = Game.new(table: @table, host: current_user.id)
       @game.setup
-      redirect_to game_path(@game.id)
+      @game.check_for_winner
+      if @game.winners.count > 0
+        @game.update(over: true)
+        flash[:notice] = "Win on the draw! Lucky!"
+        redirect_to game_path(@game.id)
+        broadcast("#{@game.conclusion(@game.id)}", "game_refresh")
+      else
+        redirect_to game_path(@game.id)
+      end
     end
   end
 

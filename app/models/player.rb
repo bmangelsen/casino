@@ -3,6 +3,7 @@ class Player < ApplicationRecord
   belongs_to :table
   has_many :player_games
   has_many :games, through: :player_games
+  has_many :winners
   has_one :hand
 
   def cards

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get '/tables/join_table', to: 'tables#join_table', as: 'join_table'
   get '/tables/leave_table', to: 'tables#leave_table', as: 'leave_table'
   get '/tables/waiting/:id', to: 'tables#waiting', as: 'waiting'
+  get '/leaderboard', to: 'games#leaderboard', as: 'leaderboard'
 
   resources :players, only: [:new, :create]
   resources :games, only: [:create, :index, :show]

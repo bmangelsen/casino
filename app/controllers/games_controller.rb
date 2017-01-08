@@ -9,7 +9,17 @@ class GamesController < ApplicationController
     if @game.save
       redirect_to game_path(@game.id)
       @game.check_for_winner
-      broadcast("", "new_game")
+      if @game.winners.count > 0 && @game.current_turn_player == Player.find_by(user: current_user, game_id: @game.id).id
+        flash[:notice] = "Win on the draw! Lucky!"
+        if @game.next_players_turn
+          broadcast("", "new_game")
+        else
+          @game.update(over: true)
+          broadcast("#{@game.conclusion(@game.id)}", "game_refresh")
+        end
+      else
+        broadcast("", "new_game")
+      end
     end
   end
 
@@ -17,6 +27,9 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
     @player = @game.player_for(current_user)
     @dealer = @game.dealer
+  end
+
+  def leaderboard
   end
 
   private

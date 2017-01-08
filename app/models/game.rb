@@ -3,9 +3,10 @@ class Game < ApplicationRecord
   has_many :players, through: :player_games
   has_many :hands
   has_one :deck
+  has_many :winners
   belongs_to :table
 
-  serialize :winner, Array
+  # serialize :winner, Array
 
   def setup
     self.build_deck
@@ -98,40 +99,63 @@ class Game < ApplicationRecord
       hand.player
     elsif hand.value > dealer_hand_value
       hand.player
-    elsif hand.value == dealer_hand_value
-      nil
     else
       dealer
     end
   end
 
-  def conclusion
-    self.update(over: true)
+  def tie_game?(player)
+    player.hand.value == dealer_hand_value
+  end
+
+  def conclusion(id)
+    @game = Game.find(id)
     results = []
-    self.human_players.each do |player|
-      self.winner << self.find_winner(player.hand)
-      self.save
-    end
-
-    self.winner.uniq!
-
-    self.winner.each do |winner|
-      if winner && winner.user_id
-        results << winner.email
+    ties = []
+    @game.human_players.each do |player|
+      if !tie_game?(player)
+        @game.winners.create(game_id: @game.id, player_id: @game.find_winner(player.hand).id)
+        @game.save
+      else
+        ties << player.id
       end
     end
 
-    if results.size == 0
+    @game.remove_duplicates
+
+    @game.winners.each do |winner|
+      if user = Player.find(winner.player_id).user
+        results << user.email
+      end
+    end
+
+    results.uniq!
+
+    if (human_players.count == ties.count) || (ties.count > 0 && results.count == 0)
+      "No one wins!"
+    elsif results.count == 0
       "Dealer wins!"
     else
       "The following players win: " + results.join(", ")
     end
   end
 
+  def remove_duplicates
+    duplicates = find_duplicates
+    duplicates.each do |duplicate|
+      Winner.find_by(game_id: duplicate.game_id, player_id: duplicate.player_id).destroy
+    end
+  end
+
+  def find_duplicates
+    Winner.select(:game_id, :player_id).group(:game_id, :player_id).having("count(*) > 1")
+  end
+
   def check_for_winner
     human_players.each do |player|
       if player.hand.value == 21
-        self.winner << player
+        self.winners.create(game_id: self.id, player_id: player.id)
+        self.save
         player.update(turn_over: true)
       end
     end
@@ -140,7 +164,7 @@ class Game < ApplicationRecord
   def greatest_player_value
     value = 0
     self.human_players.each do |player|
-      if player.hand.value > value
+      if player.hand.value > value && player.hand.value < 21
         value = player.hand.value
       end
     end

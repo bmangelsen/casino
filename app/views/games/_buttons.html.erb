@@ -5,8 +5,8 @@
   </p>
 
 <div class="row", id="buttons">
-  <% if game.over %>
-    <%= link_to "New Game!", games_path(game: {host: current_user.id, table_id: game.table.id}), method: :post, class: "btn btn-danger btn-lg" %>
+  <% if game.over && current_player.user.id == game.host %>
+    <%= link_to "New Game!", games_path(game: {host: game.host, table_id: game.table.id}), method: :post, class: "btn btn-danger btn-lg" %>
   <% end %>
 
   <% if (current_player.id == game.current_turn_player) && !game.over %>

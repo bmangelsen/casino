@@ -1,0 +1,41 @@
+<h3>
+  Blackjack Leaderboard
+</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        User
+      </th>
+      <th>
+        Plays
+      </th>
+      <th>
+        Wins
+      </th>
+      <th>
+        Rate
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% User.all.each do |user| %>
+      <% if user.games.count > 0 %>
+        <tr>
+          <td>
+            <%= user.email %>
+          </td>
+          <td>
+            <%= user.games.count %>
+          </td>
+          <td>
+            <%= won_games_for(user) %>
+          </td>
+          <td>
+            <%= number_to_percentage(won_games_for(user)/user.games.count.to_f*100, precision: 2) %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
