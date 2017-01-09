@@ -5,7 +5,16 @@ rvm:
 - jruby-19mode
 - rbx-2
 
+env:
+  - DB=pgsql
+
 services:
   - postgresql
 
-script: bundle exec rspec spec
+before_script:
+  - cp config/database.yml
+  - psql -c 'create database casino_test;' -U postgres
+
+script:
+  - RAILS_ENV=test bundle exec rails db:migrate --trace
+  - bundle exec rspec
