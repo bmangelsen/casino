@@ -5,11 +5,14 @@
 # below each fixture, per the syntax in the comments below
 #
 ben:
-  game: first
+  games: first
   user: ben
 # column: value
 #
 tom:
-  game: second
+  games: first
   user: tom
+
+dealer:
+  games: first
 # column: value

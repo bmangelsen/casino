@@ -6,7 +6,5 @@
 #
 first:
   host: ben
-second:
-  host: tom
 
 # column: value

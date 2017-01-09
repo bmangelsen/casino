@@ -36,7 +36,6 @@ gem 'cancancan'
 gem 'mail'
 gem 'httparty'
 gem 'devise'
-gem 'postgres_ext'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

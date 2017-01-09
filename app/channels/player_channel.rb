@@ -8,8 +8,4 @@ class PlayerChannel < ApplicationCable::Channel
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
   end
-
-  def deal
-    puts "DEALING FOR #{current_user.email}"
-  end
 end

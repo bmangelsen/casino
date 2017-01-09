@@ -1,4 +1,3 @@
-# require 'postgres_ext'
 module UserHelper
   def won_games_for(user)
     @wins = []

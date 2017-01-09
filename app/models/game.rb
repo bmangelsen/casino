@@ -58,18 +58,6 @@ class Game < ApplicationRecord
     dealer.hand.value
   end
 
-  def player_has_hand(current_user)
-    player(current_user).hand if player(current_user)
-  end
-
-  def player_hand_value(current_user)
-    player(current_user).hand.value if player_has_hand(current_user)
-  end
-
-  def player(current_user)
-    Player.find_by(user_id: current_user.id, game_id: self.id)
-  end
-
   def dealer
     Player.find_by(user_id: nil, game_id: self.id)
   end
@@ -80,14 +68,6 @@ class Game < ApplicationRecord
 
   def other_human_players(current_player)
     human_players.where.not(id: current_player.id)
-  end
-
-  def has_winner?(current_user)
-    if player_has_hand(current_user)
-      if player_hand_value(current_user) >= 21 || dealer_hand_value >= 21 || self.over == true
-        true
-      end
-    end
   end
 
   def find_winner(hand)
@@ -121,7 +101,7 @@ class Game < ApplicationRecord
       end
     end
 
-    @game.remove_duplicates
+    @game.remove_duplicate_winners
 
     @game.winners.each do |winner|
       if user = Player.find(winner.player_id).user
@@ -140,14 +120,14 @@ class Game < ApplicationRecord
     end
   end
 
-  def remove_duplicates
-    duplicates = find_duplicates
+  def remove_duplicate_winners
+    duplicates = find_duplicate_winners
     duplicates.each do |duplicate|
       Winner.find_by(game_id: duplicate.game_id, player_id: duplicate.player_id).destroy
     end
   end
 
-  def find_duplicates
+  def find_duplicate_winners
     Winner.select(:game_id, :player_id).group(:game_id, :player_id).having("count(*) > 1")
   end
 
