@@ -15,7 +15,7 @@ RSpec.describe Game, type: :model do
 
   it "can add players" do
     expect(@game.players.size).to eq(3)
-    @game.players.create(game_id: @game.id, user_id: users(:ben).id)
+    @game.players.new(game_id: @game.id, user_id: users(:ben).id)
     expect(@game.players.size).to eq(4)
   end
 
