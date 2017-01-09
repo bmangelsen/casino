@@ -12,7 +12,7 @@ services:
   - postgresql
 
 before_script:
-  - cp config/database.yml
+  - cp config/database.travis.yml config/database.yml
   - psql -c 'create database casino_test;' -U postgres
 
 script:
