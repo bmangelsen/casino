@@ -82,6 +82,8 @@ Rails.application.configure do
   authentication:       'plain',
   enable_starttls_auto: true  }
 
+  config.web_socket_server_url = "wss://casino-application.herokuapp.com/cable"
+  config.action_cable.allowed_request_origins = ['https://casino-application.herokuapp.com', 'http://casino-application.herokuapp.com']
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
