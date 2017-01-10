@@ -1,12 +1,11 @@
-<h3>Welcome to the Casino</h3>
-<br>
+<h3>Welcome!</h3>
 <% if current_user %>
   <h5>
-    Check out the game rules or hop right on in:
+    Check out the game rules or hop onto a table:
   </h5>
 <% else %>
   <h5>
-    Go ahead and log in so you can start playing one of these fabulous games.
+    Log in to play!
   </h5>
 <% end %>
 <br>
@@ -15,18 +14,22 @@
     <% GameType.all.each do |type| %>
       <% if type.active == true %>
         <div id="game">
-          <p>
-            <%= type.name %>
-          </p>
-          <p>
-            <%= link_to "Rules", "https://en.wikipedia.org/wiki/#{type.name}" %>
-          </p>
-          <% if current_user %>
-            <%= link_to "Join a table!", join_table_path, class: "btn btn-info btn-xs" %>
-            <%= link_to "Leaderboard", leaderboard_path, class: "btn btn-info btn-xs" %>
-             <!-- link_to "Start Game", games_path(game: {host: current_user}), method: :post, class: "btn btn-danger btn-xs" %> -->
-            <!-- link_to "Join Game", join_game_path, class: "btn btn-info btn-xs" -->
-          <% end %>
+          <div class="name">
+            <p>
+              <%= type.name %>
+            </p>
+          </div>
+          <div class="rules">
+            <%= link_to "Rules", "https://en.wikipedia.org/wiki/#{type.name}", class: "link" %>
+          </div>
+          <div class="index-buttons">
+            <% if current_user %>
+              <div class="btn-group btn-group-justified">
+                <%= link_to "Join a table!", join_table_path, class: "btn btn-default" %>
+                <%= link_to "Leaderboard", leaderboard_path, class: "btn btn-default" %>
+              </div>
+            <% end %>
+          </div>
         </div>
       <% end %>
     <% end %>
