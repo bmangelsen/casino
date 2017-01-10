@@ -25,8 +25,9 @@ RSpec.describe Game, type: :model do
     expect(@game.next_players_turn).to eq(false)
   end
 
-  it "can display human players" do
+  it "can find human players" do
     expect(@game.human_players).to eq([@ben, @tom])
+    expect(@game.human_players.count).to eq(2)
   end
 
   it "can get dealer hand value" do

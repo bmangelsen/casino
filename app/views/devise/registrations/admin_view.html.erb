@@ -2,34 +2,49 @@
   Administrator
 </h3>
 <br>
-<h5>
-  <%= count_users %> currently active users:
-</h5>
 
-<% find_users.each do |user| %>
-  <p>
-    <%= user.email %>
-  </p>
-<% end %>
-<hr>
 <h5>
   Games:
 </h5>
-
+<br>
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
-      <% GameType.all.each do |type| %>
-        <p><%= type.name %></p>
-        <p><%= "Currently Active" if type.active == true %></p>
-        <p><%= "Currently Inactive" if type.active == false %></p>
-        <% if type.active == true %>
-          <%= link_to "Deactivate", deactivate_path(type.id), class: "btn btn-danger btn-xs" %>
-        <% else %>
-          <%= link_to "Activate", activate_path(type.id), class: "btn btn-success btn-xs"%>
-        <% end %>
-        <hr>
-      <% end %>
-    </div>
+    <% GameType.all.each do |type| %>
+      <div id="game">
+        <div class="name">
+          <p>
+            <%= type.name %>
+          </p>
+        </div>
+        <div class="rules">
+          <p><%= "Currently Active" if type.active == true %></p>
+          <p><%= "Currently Inactive" if type.active == false %></p>
+        </div>
+        <div class="index-buttons">
+          <% if type.active == true %>
+            <%= link_to "Deactivate", deactivate_path(type.id), class: "btn btn-danger" %>
+          <% else %>
+            <%= link_to "Activate", activate_path(type.id), class: "btn btn-success"%>
+          <% end %>
+        </div>
+      </div>
+      <br>
+    <% end %>
   </div>
+</div>
+<hr>
+
+<div class="container">
+  <h5>
+    <%= count_users %> currently active users:
+  </h5>
+
+  <div class="emails">
+    <% find_users.each do |user| %>
+      <p>
+        <%= user.email %>
+      </p>
+    <% end %>
+  </div>
+
 </div>

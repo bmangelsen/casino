@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
-include UserHelper
+  before_action :authorize, except: [:index]
+  include UserHelper
   def index
   end
 

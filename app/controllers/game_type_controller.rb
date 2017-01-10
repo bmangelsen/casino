@@ -1,4 +1,5 @@
 class GameTypeController < ApplicationController
+  before_action :authorize, :authorize_admin
   def activate
     type = GameType.find(params[:id])
     type.activate
