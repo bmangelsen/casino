@@ -15,9 +15,10 @@
           <% else %>
           <br>
             <p id="game_header">
-              Dealer's visible card is:
+              Dealer's cards:
             </p>
             <%= display_card(dealer.cards.first) %>
+            <%= display_card(["back", "card"]) %>
           <% end %>
         </div>
       </div>

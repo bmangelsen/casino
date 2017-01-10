@@ -1,18 +1,13 @@
 <div class="container">
-  <%= link_to "Leave table", leave_table_path(id: game.table.id), class: "btn btn-info btn-xs" %>
-  <p>
-    Table players: <%= game.table.players.count %>
-  </p>
+  <div class="row", id="buttons">
+    <% if game.over && current_player.user.id == game.host %>
+      <%= link_to "New Game!", games_path(game: {host: game.host, table_id: game.table.id}), method: :post, class: "btn btn-default btn-lg game-button" %>
+    <% end %>
 
-<div class="row", id="buttons">
-  <% if game.over && current_player.user.id == game.host %>
-    <%= link_to "New Game!", games_path(game: {host: game.host, table_id: game.table.id}), method: :post, class: "btn btn-danger btn-lg" %>
-  <% end %>
-
-  <% if (current_player.id == game.current_turn_player) && !game.over %>
-    <div class="row" id="buttons">
-      <%= link_to "Hit", hand_path(current_player.hand.id), method: :patch, class: "btn btn-danger btn-lg" %>
-      <%= link_to "Stand", hand_path(current_player.hand.id, stand: "stand"), method: :patch, class: "btn btn-info btn-lg" %>
-    </div>
-  <% end %>
+    <% if (current_player.id == game.current_turn_player) && !game.over %>
+      <%= link_to "Hit", hand_path(current_player.hand.id), method: :patch, class: "btn btn-default btn-lg game-button" %>
+      <%= link_to "Stand", hand_path(current_player.hand.id, stand: "stand"), method: :patch, class: "btn btn-default btn-lg game-button" %>
+    <% end %>
+  </div>
+  <%= link_to "Leave table", leave_table_path(id: game.table.id), class: "btn btn-default btn-sm game-button" %>
 </div>

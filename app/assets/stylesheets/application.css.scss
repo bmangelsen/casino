@@ -31,8 +31,9 @@
   text-align: center;
   font-size: 15px;
   margin-bottom: 0px;
-  padding: 5px;
+  padding-top: 20px;
   height: 50px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 svg:not(:root) {
@@ -86,4 +87,8 @@ a {
    background: #FFFFFF;
    border: 2px solid #000;
    z-index: 100000;
+}
+
+#unhappy {
+  margin-bottom: 0px;
 }

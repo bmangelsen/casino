@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-
+include UserHelper
   def index
   end
 
@@ -30,6 +30,12 @@ class GamesController < ApplicationController
   end
 
   def leaderboard
+    # @users = User.all
+    # @wins = []
+    # User.all.each do |user|
+    #   @wins << won_games_for(user) if won_games_for(user) > 0
+    # end
+    # binding.pry
   end
 
   private
