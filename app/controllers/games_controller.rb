@@ -33,8 +33,10 @@ class GamesController < ApplicationController
   def leaderboard
     # @users = User.all
     # @wins = []
-    # User.all.each do |user|
-    #   @wins << won_games_for(user) if won_games_for(user) > 0
+    # @users.each do |user|
+    #   if won_games_for(user) > 0
+    #     @wins << won_games_for(user)
+    #   end
     # end
     # binding.pry
   end

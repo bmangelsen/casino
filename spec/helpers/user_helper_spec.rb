@@ -16,14 +16,14 @@ RSpec.describe UserHelper, type: :helper do
   end
 
   it "can identify all users" do
-    expect(find_users.count).to eq(2)
+    expect(find_users.count).to eq(1)
   end
 
   it "can count all users" do
-    expect(count_users).to eq(2)
+    expect(count_users).to eq(1)
   end
 
   it "can display all users' emails" do
-    expect(display_user_emails).to eq(["ben@gmail.com", "tom@gmail.com"])
+    expect(display_user_emails).to eq(["tom@gmail.com"])
   end
 end

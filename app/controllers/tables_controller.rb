@@ -26,8 +26,12 @@ class TablesController < ApplicationController
     @player = Player.find_by(user_id: current_user.id, table_id: @table.id)
     @user = User.find(current_user.id)
     @game = Game.find(@player.game_id)
-    @table.players.delete(@player)
-    @game.players.delete(@player)
+    if @game.over
+      @table.players.delete(@player)
+    else
+      @game.players.delete(@player)
+      @table.players.delete(@player)
+    end
     if @table.players.count == 1
       Table.delete(@table.id)
     else
