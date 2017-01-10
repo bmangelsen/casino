@@ -24,9 +24,40 @@ class TablesController < ApplicationController
   def leave_table
     @table = Table.find(params[:id])
     @player = Player.find_by(user_id: current_user.id, table_id: @table.id)
-    @player.update(table_id: nil)
+    @user = User.find(current_user.id)
+    @game = Game.find(@player.game_id)
+    @table.players.delete(@player)
+    @game.players.delete(@player)
     if @table.players.count == 1
       Table.delete(@table.id)
+    else
+      if @game.players.count == 1
+        @game = Game.new(table: @table, host: @table.human_players[0].user.id)
+        @game.setup
+        @game.check_for_winner
+        if @game.winners.count > 0
+          @game.update(over: true)
+          broadcast("#{@game.conclusion(@game.id)}", "new_game")
+        end
+        broadcast("", "new_game")
+      else
+        if @game.host == @user.id
+          if @game.next_players_turn
+            @game.update(host: Player.find(@game.current_turn_player).user.id)
+            broadcast("#{@player.email} has left the table", "game_refresh")
+          else
+            @game.update(host: Player.find(@game.human_players[0]).user.id)
+            broadcast("#{@game.conclusion(@game.id)}", "game_refresh")
+          end
+        else
+          if @game.next_players_turn
+            broadcast("#{@player.email} has left the table", "game_refresh")
+          else
+            @game.update(over: true)
+            broadcast("#{@game.conclusion(@game.id)}", "game_refresh")
+          end
+        end
+      end
     end
     redirect_to games_path
   end

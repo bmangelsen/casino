@@ -16,3 +16,28 @@
 //= require turbolinks
 //= require_tree .
 //= require_tree ./channels
+
+window.onload = function() {
+   var overlay = document.getElementById("overlay");
+   var popup = document.getElementById("popup");
+
+   document.getElementById("rules-button")
+           .addEventListener("click", function openRules(){
+
+              overlay.style.display = "block";
+              popup.style.display = "block";
+
+
+    overlay.addEventListener("click", function dropRules() {
+              overlay.style.display = "none";
+              popup.style.display = "none";
+           });
+   });
+};
+
+
+
+// document.body.addEventListener('click', function removeRules() {
+//   overlay.style.display = "none";
+//   popup.style.display = "none";
+// });

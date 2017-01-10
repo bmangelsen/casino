@@ -23,4 +23,8 @@ class Table < ApplicationRecord
   def add_dealer
     players.create(table_id: self.id)
   end
+
+  def human_players
+    players.where.not(user: nil)
+  end
 end

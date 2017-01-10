@@ -4,7 +4,6 @@
     Table players: <%= game.table.players.count %>
   </p>
 
-<!-- RENAME THIS ID -->
 <div class="row", id="buttons">
   <% if game.over && current_player.user.id == game.host %>
     <%= link_to "New Game!", games_path(game: {host: game.host, table_id: game.table.id}), method: :post, class: "btn btn-danger btn-lg" %>

@@ -10,7 +10,7 @@ class GamesController < ApplicationController
       redirect_to game_path(@game.id)
       @game.check_for_winner
       if @game.winners.count > 0 && @game.current_turn_player == Player.find_by(user: current_user, game_id: @game.id).id
-        flash[:notice] = "Win on the draw! Lucky!"
+        # flash[:notice] = "Win on the draw! Lucky!"
         if @game.next_players_turn
           broadcast("", "new_game")
         else

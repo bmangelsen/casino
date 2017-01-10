@@ -20,7 +20,11 @@
             </p>
           </div>
           <div class="rules">
-            <%= link_to "Rules", "https://en.wikipedia.org/wiki/#{type.name}", class: "link" %>
+            <button id="rules-button">Rules</button>
+            <div id="overlay"></div>
+            <div id="popup">
+              Simple! Hit until you get as close as you can to 21 points. If you bust, you lose! When you stand, dealer hits until winning or until 17 points. If he busts, you win! If neither busts, highest score wins!
+            </div>
           </div>
           <div class="index-buttons">
             <% if current_user %>

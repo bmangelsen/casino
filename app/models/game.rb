@@ -8,7 +8,7 @@ class Game < ApplicationRecord
 
   # serialize :winner, Array
 
-  def setup
+  def setup #put save before creating game players to get rid of own_id_to_players method
     self.build_deck
     self.add_players
     self.players.update(turn_over: false)
