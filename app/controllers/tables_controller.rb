@@ -50,7 +50,7 @@ class TablesController < ApplicationController
             @game.update(host: Player.find(@game.current_turn_player).user.id)
             broadcast("#{@player.email} has left the table", "game_refresh")
           else
-            @game.update(host: Player.find(@game.other_human_players(@user)[0]).user.id)
+            @game.update(host: Player.find(@game.other_human_players(@user)[0].id).user.id)
             broadcast("#{@game.conclusion(@game.id)}", "game_refresh")
           end
         else
