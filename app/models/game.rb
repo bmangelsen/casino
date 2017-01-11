@@ -6,9 +6,7 @@ class Game < ApplicationRecord
   has_many :winners
   belongs_to :table
 
-  # serialize :winner, Array
-
-  def setup #put save before creating game players to get rid of own_id_to_players method
+  def setup
     self.build_deck
     self.add_players
     self.players.update(turn_over: false)

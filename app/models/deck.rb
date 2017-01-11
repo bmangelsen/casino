@@ -9,7 +9,7 @@ class Deck < ApplicationRecord
   after_initialize :build_deck
 
   def build_deck
-    return if cards.length == 52
+    return unless cards.empty?
     @deck = []
       VALUE.each do |value|
         SUIT.each do |suit|

@@ -4,13 +4,16 @@ RSpec.describe Game, type: :model do
   fixtures :players, :games, :users
 
   before(:each) do
-    @table = Table.find_table
-    @ben = @table.players.create(table_id: @table.id, user_id: users(:ben).id)
-    @tom = @table.players.create(table_id: @table.id, user_id: users(:tom).id)
+    @table = Table.create
+    @table.players << players(:ben)
+    @table.players << players(:tom)
+    @table.players << players(:dealer)
     @game = Game.create(host: users(:ben).id, table: @table)
     @game.setup
     @user = users(:ben)
-    @dealer = @game.dealer
+    @ben = Player.find_by(game_id: @game.id, user_id: users(:ben).id, table_id: @table.id)
+    @tom = Player.find_by(game_id: @game.id, user_id: users(:tom).id, table_id: @table.id)
+    @dealer = Player.find_by(game_id: @game.id, user_id: nil, table_id: @table.id)
   end
 
   it "can add players" do
@@ -20,8 +23,9 @@ RSpec.describe Game, type: :model do
   end
 
   it "returns false if no next player" do
-    @game.human_players[0].update(turn_over: true)
-    @game.human_players[1].update(turn_over: true)
+    @game.human_players[0].update!(turn_over: true)
+    @game.human_players[1].update!(turn_over: true)
+    @game.reload
     expect(@game.next_players_turn).to eq(false)
   end
 

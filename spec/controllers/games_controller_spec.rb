@@ -7,6 +7,7 @@ RSpec.describe GamesController, type: :controller do
     @table = Table.create
     @table.players << players(:ben)
     @table.players << players(:tom)
+    @table.players << players(:dealer)
   end
 
   it "can be created" do
@@ -26,6 +27,6 @@ RSpec.describe GamesController, type: :controller do
   it "can create players" do
     sign_in users(:ben)
     post :create, params: { game: { host: users(:ben).id, table_id: @table.id } }
-    expect(Game.last.players.count).to eq(2)
+    expect(Game.last.players.count).to eq(3)
   end
 end
