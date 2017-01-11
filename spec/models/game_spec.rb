@@ -31,7 +31,7 @@ RSpec.describe Game, type: :model do
   end
 
   it "can find human players" do
-    expect(@game.human_players).to be_in([[@ben, @tom], [@tom, @ben])
+    expect(@game.human_players).to be_in([[@ben, @tom], [@tom, @ben]])
     expect(@game.human_players.count).to eq(2)
   end
 
