@@ -23,8 +23,9 @@ RSpec.describe Game, type: :model do
   end
 
   it "returns false if no next player" do
-    @game.human_players[0].update!(turn_over: true)
-    @game.human_players[1].update!(turn_over: true)
+    @game.human_players.each do |player|
+      player.update!(turn_over: true)
+    end
     @game.reload
     expect(@game.next_players_turn).to eq(false)
   end
@@ -71,7 +72,9 @@ RSpec.describe Game, type: :model do
     @ben.hand.update(cards: [[2, "hearts"], [3, "spades"]])
     @tom.hand.update(cards: [[2, "hearts"], [3, "spades"]])
     @dealer.hand.update(cards: [[2, "hearts"], [2, "spades"]])
-    expect(@game.conclusion(@game.id)).to eq("The following players win: ben@gmail.com, tom@gmail.com")
+    expect(@game.conclusion(@game.id)).to be_in(
+                ["The following players win: ben@gmail.com, tom@gmail.com",
+                "The following players win: tom@gmail.com, ben@gmail.com"])
   end
 
   it "can have a conclusion where no one wins" do

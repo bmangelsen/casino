@@ -73,7 +73,7 @@ RSpec.describe HandsController, type: :controller do
   it "can hit 21 and go to next player's turn" do
     sign_in users(:ben)
     @ben.hand.update!(cards: [["king", "hearts"], ["queen", "hearts"]])
-    @game.deck.update!(cards: [["ace", "hearts"]])
+    @game.deck.update!(cards: [["ace", "hearts"], ["ace", "hearts"], ["ace", "hearts"]])
     patch :update, params: {id: @ben.hand.id}
     @ben.reload
     @game.reload
