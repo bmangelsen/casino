@@ -32,19 +32,3 @@
     <% end %>
   </div>
 </div>
-<hr>
-
-<div class="container">
-  <h5>
-    <%= count_users %> currently active users:
-  </h5>
-
-  <div class="emails">
-    <% find_users.each do |user| %>
-      <p>
-        <%= user.email %>
-      </p>
-    <% end %>
-  </div>
-
-</div>
