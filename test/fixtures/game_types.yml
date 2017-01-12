@@ -5,5 +5,8 @@
 # below each fixture, per the syntax in the comments below
 #
 # column: value
-#
+
+blackjack:
+  name: "Blackjack"
+  active: true
 # column: value
