@@ -24,11 +24,11 @@ This project uses [RSpec](https://github.com/rspec/rspec) and [Capybara](https:/
 
 ## Contributing
 I'm happy to receive any bug reports and additional features!
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request!
+  1. Fork it!
+  2. Create your feature branch: `git checkout -b my-new-feature`
+  3. Commit your changes: `git commit -am 'Add some feature'`
+  4. Push to the branch: `git push origin my-new-feature`
+  5. Submit a pull request!
 
 ## Acknowledgements
 I'd like to thank my instructors at The Iron Yard for the intense but extremely rewarding course that got me into the developer world.
